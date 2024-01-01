@@ -1,6 +1,6 @@
-const asynHandler = (controller) =>
+const asyncHandler = (controller) =>
     (req, res, next) =>
         Promise.resolve(controller(req, res, next))
-            .catch(next(error));
+            .catch((error) => next(error))
 
-module.exports = asynHandler;
+module.exports = asyncHandler;
