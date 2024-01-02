@@ -5,6 +5,9 @@ const customErrorHandler = (err, req, res, next) => {
     if (err.name == "TokenExpiredError") {
         return res.status(401).json(errorResponseGenrator("Token Expired", err))
     }
+    if (err.name == "JsonWebTokenError") {
+        return res.status(401).json(errorResponseGenrator("Invalid Token", err))
+    }
     if (!err.status) {
         err.message = "Something went wrong"
         return res.status(500).json(errorResponseGenrator("Something went wrong please try again later", err))
