@@ -4,7 +4,7 @@ const chatSchema = new mongoose.Schema({
     groupChat: {
         type: Boolean,
         required: true,
-        default: function () { return this.users.length != 2 },
+        default: false,
     },
     name: {
         type: String,
@@ -30,9 +30,18 @@ const chatSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'User',
                 required: true
+            },
+            joinAt: {
+                type: Date,
+                default: Date.now
             }
         }
     ],
+    admin: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: function () { return this.groupChat }
+    }]
 },
     { timestamps: true })
 

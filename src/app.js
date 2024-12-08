@@ -7,7 +7,6 @@ const YAML = require("yaml");
 const morgan = require("morgan");
 const swaggerUi = require("swagger-ui-express")
 const { Server } = require("socket.io")
-const isLogedinHandshake = require("./middlewares/socketMiddleware")
 
 const server = createServer(app);
 const io = new Server(server, {

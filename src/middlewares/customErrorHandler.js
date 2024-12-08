@@ -2,6 +2,7 @@ const { errorResponseGenrator } = require("../util/structuredResponseGenrator")
 
 
 const customErrorHandler = (err, req, res, next) => {
+    console.log(err);
     if (err.name == "TokenExpiredError") {
         return res.status(401).json(errorResponseGenrator("Token Expired", err))
     }

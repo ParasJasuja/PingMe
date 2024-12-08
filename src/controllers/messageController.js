@@ -12,10 +12,13 @@ exports.sendMessage = asyncHandler(async (req, res, next) => {
     if (!chatId) {
         next(new CustomError(400, "Please provide chatId and to id."))
     }
-    const chat = await Chat.findById(chatId);
-    if (!chat) {
+
+    // Retrieve chat only if user is part of chat
+    const chatFound = await Chat.find({ _id: chatId, "users.userId": req.user._id });
+    if (!chatFound.length) {
         next(new CustomError(400, "Chat not found with id " + chatId))
     }
+    const chat = chatFound[0];
 
     const newMessage = await Message.create({
         message,
